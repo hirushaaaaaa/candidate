@@ -7,7 +7,7 @@ import java.util.List;
 @Repository
 public interface CandidateRepository extends JpaRepository<Candidate, Integer>{
 
-    List<Candidate> findCandidateByName(String cname);
+    List<Candidate> findCandidateByCname(String cname);
 
     List<Candidate> findCandidateByAge(int age);
 }

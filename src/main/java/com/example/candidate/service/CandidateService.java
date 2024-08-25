@@ -36,7 +36,7 @@ public class CandidateService {
     }
 
     public List<Candidate> findCandidateByName(String cname){
-        return candidateRepository.findCandidateByName(cname);
+        return candidateRepository.findCandidateByCname(cname);
     }
     public List<Candidate> findCandidateByAge(int age){
         return candidateRepository.findCandidateByAge(age);

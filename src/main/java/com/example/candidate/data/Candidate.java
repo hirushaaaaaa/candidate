@@ -1,13 +1,20 @@
 package com.example.candidate.data;
 
 
+import jakarta.persistence.*;
 
+
+@Entity
+@Table(name ="candidate")
 public class Candidate {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cid")
     private int cid;
-
+    @Column(name = "cname")
     private String cname;
-
+    @Column(name = "age")
     private int age;
 
     public int getCid() {
@@ -57,10 +64,10 @@ public class Candidate {
     public void setQualifications(String qualifications) {
         this.qualifications = qualifications;
     }
-
+    @Column(name = "experience")
     private int experience;
-
+    @Column(name = "prev_position")
     private String prev_position;
-
+    @Column(name = "qualifications")
     private String qualifications;
 }
