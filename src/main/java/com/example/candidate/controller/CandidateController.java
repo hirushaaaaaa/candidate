@@ -21,28 +21,28 @@ public class CandidateController {
         return candidateService.getCandidateById(cid);
     }
 
-    @PostMapping(path = "/candidate")
+    @PostMapping(path = "/candidates")
     public Candidate createCandidate(@RequestBody Candidate candidate){
         return candidateService.addCandidate(candidate);
     }
 
-    @PutMapping(path = "/candidate")
+    @PutMapping(path = "/candidates")
     public Candidate updateCandidate(@RequestBody Candidate candidate){
         return candidateService.updateCandidate(candidate);
     }
 
-    @DeleteMapping(path = "/candidate/{cid}")
+    @DeleteMapping(path = "/candidates/{cid}")
     public void deleteCandidate(@PathVariable Integer cid){
         candidateService.deleteCandidate(cid);
     }
 
 
-    @GetMapping(path = "/candidate", params = "cname")
+    @GetMapping(path = "/candidates", params = "cname")
     public List<Candidate> findCandidateByName(@RequestParam String cname){
         return candidateService.findCandidateByName(cname);
     }
 
-    @GetMapping(path = "/candidate", params = "age")
+    @GetMapping(path = "/candidates", params = "age")
     public List<Candidate> findCandidateByAge(@RequestParam int age){
         return candidateService.findCandidateByAge(age);
     }
