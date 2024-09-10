@@ -3,48 +3,71 @@ package com.example.candidate.controller;
 import com.example.candidate.data.Candidate;
 import com.example.candidate.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/candidates") // Use a common base path
 public class CandidateController {
+
     @Autowired
     private CandidateService candidateService;
 
-    @GetMapping(path="/candidates")
-    public List<Candidate> findAllCandidates(){
+    @GetMapping
+    public List<Candidate> findAllCandidates() {
         return candidateService.getCandidates();
     }
 
-    @GetMapping(path ="/candidates/{cid}")
-    public Candidate findCandidatesById(@PathVariable int cid){
-        return candidateService.getCandidateById(cid);
+    @GetMapping("/{cid}")
+    public ResponseEntity<Candidate> findCandidateById(@PathVariable int cid) {
+        Candidate candidate = candidateService.getCandidateById(cid);
+        if (candidate == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(candidate);
     }
 
-    @PostMapping(path = "/candidates")
-    public Candidate createCandidate(@RequestBody Candidate candidate){
+    @PostMapping
+    public Candidate createCandidate(@RequestBody Candidate candidate) {
         return candidateService.addCandidate(candidate);
     }
 
-    @PutMapping(path = "/candidates")
-    public Candidate updateCandidate(@RequestBody Candidate candidate){
-        return candidateService.updateCandidate(candidate);
+    @PutMapping("/{cid}")
+    public ResponseEntity<Candidate> updateCandidate(@PathVariable Integer cid, @RequestBody Candidate candidateDetails) {
+        Candidate candidate = candidateService.getCandidateById(cid);
+        if (candidate == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        candidate.setCname(candidateDetails.getCname());
+        candidate.setAge(candidateDetails.getAge());
+        candidate.setExperience(candidateDetails.getExperience());
+        candidate.setPrev_position(candidateDetails.getPrev_position());
+        candidate.setQualifications(candidateDetails.getQualifications());
+
+        Candidate updatedCandidate = candidateService.updateCandidate(candidate);
+        return ResponseEntity.ok(updatedCandidate);
     }
 
-    @DeleteMapping(path = "/candidates/{cid}")
-    public void deleteCandidate(@PathVariable Integer cid){
+    @DeleteMapping(path = "/{cid}")
+    public ResponseEntity<Void> deleteCandidate(@PathVariable Integer cid) {
         candidateService.deleteCandidate(cid);
+        return ResponseEntity.noContent().build(); // Return 204 No Content on successful deletion
     }
 
 
-    @GetMapping(path = "/candidates", params = "cname")
-    public List<Candidate> findCandidateByName(@RequestParam String cname){
+
+
+    @GetMapping(params = "cname")
+    public List<Candidate> findCandidateByName(@RequestParam String cname) {
         return candidateService.findCandidateByName(cname);
     }
 
-    @GetMapping(path = "/candidates", params = "age")
-    public List<Candidate> findCandidateByAge(@RequestParam int age){
+    @GetMapping(params = "age")
+    public List<Candidate> findCandidateByAge(@RequestParam int age) {
         return candidateService.findCandidateByAge(age);
     }
 }
