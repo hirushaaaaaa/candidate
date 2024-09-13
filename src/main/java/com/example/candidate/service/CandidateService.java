@@ -42,7 +42,9 @@ public class CandidateService {
         }
     }
 
-
+    public void clearCandidates() {
+        candidateRepository.deleteAll();
+    }
 
 
     public List<Candidate> findCandidateByName(String cname) {
@@ -52,5 +54,6 @@ public class CandidateService {
     public List<Candidate> findCandidateByAge(int age) {
         return candidateRepository.findCandidateByAge(age);
     }
+
 
 }

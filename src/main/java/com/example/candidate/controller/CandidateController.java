@@ -58,7 +58,10 @@ public class CandidateController {
         return ResponseEntity.noContent().build(); // Return 204 No Content on successful deletion
     }
 
-
+    @DeleteMapping("/clear")
+    public void clearVotes() {
+        candidateService.clearCandidates();
+    }
 
 
     @GetMapping(params = "cname")
