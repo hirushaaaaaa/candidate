@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/candidates") // Use a common base path
+@RequestMapping("/candidates")
 public class CandidateController {
 
     @Autowired

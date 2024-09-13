@@ -31,7 +31,7 @@ public class CandidateService {
         if (candidateRepository.existsById(candidate.getCid())) {
             return candidateRepository.save(candidate);
         }
-        return null; // or throw an exception if preferred
+        return null;
     }
 
     public void deleteCandidate(int cid) {
